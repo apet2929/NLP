@@ -137,7 +137,8 @@ class PygGraphPropPredDataset(InMemoryDataset):
         else:
             additional_node_files = self.meta_info['additional node files'].split(',')
 
-        if self.meta_info['additional edge files'] == 'None':
+        import math
+        if math.isnan(self.meta_info['additional edge files']) or self.meta_info['additional edge files'] == 'None' :
             additional_edge_files = []
         else:
             additional_edge_files = self.meta_info['additional edge files'].split(',')

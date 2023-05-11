@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
-
-source activate pyg
+#set -e
+#
+#source activate pyg
 
 PROJECT=$PWD
 

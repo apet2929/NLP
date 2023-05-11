@@ -9,20 +9,20 @@ from torchvision import transforms
 from tqdm import tqdm
 from ogb.graphproppred import Evaluator
 
-from src.utils import augment_edge, ASTNodeEncoder
-from src.model.gnn import GNN
-from src.data.dataset import PygGraphPropPredDataset
-from src.data.dataloader import DataLoader
-from src.data.data_parallel import DataParallel
-# make sure summary_report is imported after src.utils (also from dependencies)
-from src.utils_file import *
+from utils import augment_edge, ASTNodeEncoder
+from model.gnn import GNN
+from data.dataset import PygGraphPropPredDataset
+from data.dataloader import DataLoader
+from data.data_parallel import DataParallel
+# make sure summary_report is imported after utils (also from dependencies)
+from utils_file import *
 
 
 torch.multiprocessing.set_sharing_strategy('file_system')
 multicls_criterion = torch.nn.CrossEntropyLoss()
 
 path = os.path.abspath(__file__)
-path = path[:path.rindex("/")] + "/../"
+path = path[:path.rindex("\\")] + "\\..\\"
 PATH = os.path.abspath(path)
 
 
@@ -35,6 +35,8 @@ def train(model, device, loader, optimizer, args, evaluator):
     for step, batch in enumerate(tqdm(loader, desc="Iteration")):
         # one b(atch) per device
         batch = [b for b in batch if not b.x.shape[0] == 1 and not b.batch[-1] == 0]
+
+
         if batch:
             pred = model(batch)
             optimizer.zero_grad()
